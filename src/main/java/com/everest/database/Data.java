@@ -1,9 +1,11 @@
-package com.everest.airline;
+package com.everest.database;
+
+import com.everest.model.Flight;
 
 import java.util.List;
 
 public class Data {
-    static List<Flight> flights = List.of(
+    public static List<Flight> flights = List.of(
             new Flight(1001, "Hyderabad", "Bangalore"),
             new Flight(1002, "Bangalore", "Hyderabad"),
             new Flight(1003, "Goa", "Bangalore"),

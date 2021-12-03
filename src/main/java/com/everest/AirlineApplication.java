@@ -1,4 +1,4 @@
-package com.everest.airline;
+package com.everest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

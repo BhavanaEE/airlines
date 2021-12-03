@@ -1,4 +1,4 @@
-package com.everest.airline;
+package com.everest.model;
 
 public class Flight {
     private long number;
