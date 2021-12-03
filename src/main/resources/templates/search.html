@@ -14,12 +14,14 @@
         <th>To</th>
         <th>Departure Date</th>
         <th>Arrival Time</th>
+        <th>Seats Available</th>
         <tr th:each="flight:${flights}">
             <td th:text="${flight.number}"></td>
             <td th:text="${flight.source}"></td>
             <td th:text="${flight.destination}"></td>
             <td th:text="${flight.departureDate}"></td>
             <td th:text="${flight.arrivalTime}"></td>
+            <td th:text="${flight.getSeatsAvailable}"></td>
         </tr>
     </table>
 </body>
