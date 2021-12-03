@@ -21,8 +21,8 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String from, String to, Model model) {
-        List<Flight> flightList = searchFlightService.getFlights(from, to);
+    public String search(String from, String to, String departureDate,Model model) {
+        List<Flight> flightList = searchFlightService.getFlights(from, to, departureDate);
         model.addAttribute("flights", flightList);
         return "search";
     }
