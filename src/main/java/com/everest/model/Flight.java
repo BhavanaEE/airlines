@@ -1,5 +1,7 @@
 package com.everest.model;
 
+import java.time.LocalDate;
+
 public class Flight {
     private long number;
     private String source;
@@ -22,5 +24,5 @@ public class Flight {
     public String getDestination() {
         return destination;
     }
-
+    
 }

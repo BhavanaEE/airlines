@@ -9,8 +9,9 @@ import java.util.stream.Collectors;
 
 public class SearchFlightService {
     public List<Flight> getFlights(String source, String destination){
-        return Data.flights.stream()
+        List<Flight> flightList = Data.flights.stream()
                 .filter(flight -> flight.getSource().equalsIgnoreCase(source) && flight.getDestination().equalsIgnoreCase(destination))
                 .collect(Collectors.toList());
+        return flightList;
     }
 }
