@@ -1,0 +1,7 @@
+1001,Hyderabad,Bangalore,2021-01-01,06:30,07:35,4
+1002,Hyderabad,Bangalore,2021-01-01,06:30,07:35,5
+1003,Hyderabad,Bangalore,2021-01-01,06:30,07:35,82
+1004,Hyderabad,Bangalore,2021-01-01,06:30,07:35,5
+1005,Hyderabad,Bangalore,2021-01-01,06:30,07:35,2
+1006,Hyderabad,Bangalore,2021-01-01,06:30,07:35,0
+1007,Hyderabad,Bangalore,2021-01-01,06:30,07:35,38
