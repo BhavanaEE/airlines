@@ -45,4 +45,14 @@ public class Flight {
     public void setSeatsAvailable(int noOfPassengersForBooking) {
         this.availableSeats=noOfPassengersForBooking;
     }
+
+    public String getFlightDetails() {
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append(getNumber());
+        stringBuilder.append(getDestination());
+        stringBuilder.append(getSource());
+        stringBuilder.append(getDepartureDate());
+        stringBuilder.append(getSeatsAvailable());
+        return stringBuilder.toString();
+    }
 }
