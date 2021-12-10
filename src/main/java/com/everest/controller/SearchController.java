@@ -22,13 +22,13 @@ public class SearchController {
 
     @RequestMapping(value = "/search")
     public String search(String from, String to, String departureDate,Model model) throws Exception {
-        try {
-            List<Flight> flightList = searchFlightService.getFlights(from, to,departureDate);
-            searchFlightService.updateFlightData(flightList);
+            List<Flight> flightList = searchFlightService.getFlights(from, to, departureDate);
+            if(flightList.size()==0) {
+                System.out.println("No flights found");
+                return "noFlights";
+            }
             model.addAttribute("flights", flightList);
-
-        }
-        catch (Exception e){ throw new Exception(e);}
-        return "search";
+        searchFlightService.updateFlightData(flightList);
+            return "search";
     }
 }
