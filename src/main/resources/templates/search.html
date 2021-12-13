@@ -4,11 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript">
+    function myFunc(id)
+    {
+        window.location.replace(`/book.html?id=${id}`)
+    }
+</script>
 </head>
 
 <body>
     <h1>Airline application</h1>
-    <form action="#" th:action="@{/book}" >
     <table border="1">
         <th>Number</th>
         <th>From</th>
@@ -16,23 +21,23 @@
         <th>Departure Date</th>
         <th>Arrival Time</th>
         <th>Seats Available</th>
+        <th>Book Ticket</th>
         <tr th:each="flight:${flights}">
-            <td id="id" th:text="${flight.number}"></td>
+            <td id="number" th:text="${flight.number}"></td>
             <td id="source" th:text="${flight.source}"></td>
             <td id="destination" th:text="${flight.destination}"></td>
             <td id="departureDate" th:text="${flight.departureDate}"></td>
             <td th:text="${flight.arrivalTime}"></td>
-            <td th:text="${flight.getSeatsAvailable}"></td>
+            <td th:text="${flight.availableSeats}"></td>
+            <td>
+                <form th:action="@{/book}" method="post">
+                <input type="hidden" for="flightNumber" >
+                <button type="submit" id="flightNumber" th:value="${flight.number}" name="flightNumber">Book</button>
+                </form>
+            </td>
 
-<!--            <td>-->
-<!--                <form action="#" th:action="@{/book}" >-->
-<!--                    <input type="submit" id="book" name="book" value="Book">-->
-<!--                </form>-->
-<!--            </td>-->
         </tr>
     </table>
-    </form>
 
 </body>
-
 </html>
