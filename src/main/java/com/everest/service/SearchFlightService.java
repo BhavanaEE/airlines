@@ -46,7 +46,6 @@ public class SearchFlightService {
 
     public List<Flight> getFlights(String source, String destination, String departureDate) throws Exception {
         List<Flight> flightList = searchFlightsBySourceAndDestination(source, destination);
-        flightList.forEach(System.out::println);
         flightList = getFlightsByDepartureDate(flightList, departureDate);
         return getFlightsBySeatsAvailable(flightList);
 
@@ -58,12 +57,12 @@ public class SearchFlightService {
     }
 
     public List<Flight> getFlightsBySeatsAvailable(List<Flight> flightList) {
-        return flightList.stream().filter(flight -> flight.getSeatsAvailable() >1).collect(Collectors.toList());
+        return flightList.stream().filter(flight -> flight.getAvailableSeats() >1).collect(Collectors.toList());
     }
 
-    public void updateFlightData(List<Flight> modifiedFlights) throws IOException {
-        int seatsAvailable = modifiedFlights.get(0).getSeatsAvailable();
-        modifiedFlights.get(0).setSeatsAvailable(seatsAvailable - 1);
+    public void updateFlightData(List<Flight> modifiedFlights, int noOfPassengers) throws IOException {
+        int seatsAvailable = modifiedFlights.get(0).getAvailableSeats();
+        modifiedFlights.get(0).setSeatsAvailable(seatsAvailable - noOfPassengers);
         writeToFile(modifiedFlights.get(0));
     }
 
@@ -75,7 +74,7 @@ public class SearchFlightService {
                     .map(line -> {
                         String[] flightDetails = line.split(",");
                         if (flightDetails[0].equals(String.valueOf(modifiedFlights.getNumber()))) {
-                            line = flightDetails[0] + "," + flightDetails[1] + "," + flightDetails[2] + "," + flightDetails[3] + "," + flightDetails[4] + "," + flightDetails[5] + "," + modifiedFlights.getSeatsAvailable();
+                            line = flightDetails[0] + "," + flightDetails[1] + "," + flightDetails[2] + "," + flightDetails[3] + "," + flightDetails[4] + "," + flightDetails[5] + "," + modifiedFlights.getAvailableSeats();
                         }
                         return line;
                     })

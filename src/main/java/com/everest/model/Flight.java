@@ -40,7 +40,7 @@ public class Flight {
 
     public LocalTime getArrivalTime() { return arrivalTime;}
 
-    public int getSeatsAvailable() { return availableSeats;}
+    public int getAvailableSeats() { return availableSeats;}
 
     public void setSeatsAvailable(int noOfPassengersForBooking) {
         this.availableSeats=noOfPassengersForBooking;
@@ -52,7 +52,7 @@ public class Flight {
         stringBuilder.append(getDestination());
         stringBuilder.append(getSource());
         stringBuilder.append(getDepartureDate());
-        stringBuilder.append(getSeatsAvailable());
+        stringBuilder.append(getAvailableSeats());
         return stringBuilder.toString();
     }
 }
