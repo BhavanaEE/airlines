@@ -11,8 +11,11 @@ public class Flight {
     private LocalTime departureTime;
     private LocalTime arrivalTime;
     private int availableSeats;
+    private int economicSeats;
+    private int firstClassSeats;
+    private int secondClassSeats;
 
-    public Flight(long number, String source, String destination,LocalDate departureDate,LocalTime departureTime,LocalTime arrivalTime,int availableSeats) {
+    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, int availableSeats, int economicSeats, int firstClassSeats, int secondClassSeats) {
         this.number = number;
         this.source = source;
         this.destination = destination;
@@ -20,6 +23,9 @@ public class Flight {
         this.departureTime=departureTime;
         this.arrivalTime=arrivalTime;
         this.availableSeats =availableSeats;
+        this.economicSeats=economicSeats;
+        this.firstClassSeats = firstClassSeats;
+        this.secondClassSeats = secondClassSeats;
     }
 
     public long getNumber() {
@@ -41,6 +47,18 @@ public class Flight {
     public LocalTime getArrivalTime() { return arrivalTime;}
 
     public int getAvailableSeats() { return availableSeats;}
+
+    public int getEconomicSeats() { return economicSeats;}
+
+    public void setEconomicSeats(int noOfPassengersForBooking){ this.economicSeats-=noOfPassengersForBooking;}
+
+    public int getFirstClassSeats(){ return firstClassSeats;}
+
+    public void setFirstClassSeats(int noOfPassengersForBooking){ this.firstClassSeats-=noOfPassengersForBooking;}
+
+    public int getSecondClassSeats(){ return secondClassSeats;}
+
+    public void setSecondClassSeats(int noOfPassengersForBooking){ this.secondClassSeats-=noOfPassengersForBooking;}
 
     public void setSeatsAvailable(int noOfPassengersForBooking) {
         this.availableSeats=noOfPassengersForBooking;
