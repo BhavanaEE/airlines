@@ -24,11 +24,11 @@ public class SearchController {
     public String search(String from, String to, String departureDate, Model model) throws Exception {
         List<Flight> flightList = searchFlightService.getFlights(from, to, departureDate);
         if (flightList.size() == 0) {
-            System.out.println("No flights found");
-            return "noFlights";
+            model.addAttribute("errorMessage","No flights found");
+            return "error";
         }
         model.addAttribute("flights", flightList);
-        //searchFlightService.updateFlightData(flightList);
+       // searchFlightService.updateFlightData(flightList);
         return "search";
     }
 
@@ -38,5 +38,4 @@ public class SearchController {
         return "booking";
 
     }
-
 }

@@ -24,7 +24,7 @@ public class BookController {
     private SearchFlightService searchFlightService;
 
     @RequestMapping(value = "/booking")
-    public String booking(String noOfPassengers, String flightNumber, Model model) throws IOException {
+    public String booking(String noOfPassengers, String flightNumber,String flightType, Model model) throws IOException {
         boolean flag=false;
         File folder = new File("/Users/bhavanachivukula/Training/airlines/src/main/java/com/everest/database/FlightsData");
         List<File> files = List.of(folder.listFiles());
@@ -34,12 +34,23 @@ public class BookController {
                 Stream<String> lines = Files.lines(Paths.get(file.getPath()));
                 flightList = lines.map(line -> {
                     String[] flightDetails = line.split(",");
-                    return new Flight(Long.parseLong(flightDetails[0]), flightDetails[1], flightDetails[2], LocalDate.parse(flightDetails[3]), LocalTime.parse(flightDetails[4]), LocalTime.parse(flightDetails[5]), Integer.parseInt(flightDetails[6]));
+                    return new Flight(Long.parseLong(flightDetails[0]), flightDetails[1], flightDetails[2], LocalDate.parse(flightDetails[3]), LocalTime.parse(flightDetails[4]), LocalTime.parse(flightDetails[5]), Integer.parseInt(flightDetails[6]),Integer.parseInt(flightDetails[7]),Integer.parseInt(flightDetails[8]),Integer.parseInt(flightDetails[9]));
                 }).collect(Collectors.toList());
                 break;
             }
         }
-        searchFlightService.updateFlightData(flightList,Integer.parseInt(noOfPassengers));
-        return "home";
+        try{
+            if(flightList.get(0).getAvailableSeats()<Integer.parseInt(noOfPassengers))
+                throw new Exception();
+        }
+        catch (Exception e){
+            return "noseats";
+        }
+
+        if(searchFlightService.updateFlightData(flightList,Integer.parseInt(noOfPassengers),flightType)){
+            model.addAttribute("flights",flightList);
+            return "submit";
+        }
+        return "noseats";
     }
 }
