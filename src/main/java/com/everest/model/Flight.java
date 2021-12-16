@@ -14,8 +14,12 @@ public class Flight {
     private int economicSeats;
     private int firstClassSeats;
     private int secondClassSeats;
+    private int firstClassPrice;
+    private int secondClassPrice;
+    private int economicPrice;
+    private int totalFare;
 
-    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, int availableSeats, int economicSeats, int firstClassSeats, int secondClassSeats) {
+    public Flight(long number, String source, String destination, LocalDate departureDate, LocalTime departureTime, LocalTime arrivalTime, int availableSeats, int economicSeats, int firstClassSeats, int secondClassSeats,int economicPrice,int firstClassPrice,int secondClassPrice) {
         this.number = number;
         this.source = source;
         this.destination = destination;
@@ -24,8 +28,11 @@ public class Flight {
         this.arrivalTime=arrivalTime;
         this.availableSeats =availableSeats;
         this.economicSeats=economicSeats;
+        this.economicPrice=economicPrice;
         this.firstClassSeats = firstClassSeats;
+        this.firstClassPrice=firstClassPrice;
         this.secondClassSeats = secondClassSeats;
+        this.secondClassPrice=secondClassPrice;
     }
 
     public long getNumber() {
@@ -50,27 +57,39 @@ public class Flight {
 
     public int getEconomicSeats() { return economicSeats;}
 
-    public void setEconomicSeats(int noOfPassengersForBooking){ this.economicSeats-=noOfPassengersForBooking;}
-
     public int getFirstClassSeats(){ return firstClassSeats;}
 
-    public void setFirstClassSeats(int noOfPassengersForBooking){ this.firstClassSeats-=noOfPassengersForBooking;}
+    public int getSecondClassPrice(){ return secondClassPrice;}
+
+    public int getEconomicPrice(){ return economicPrice;}
+
+    public int getFirstClassPrice(){ return firstClassPrice;}
 
     public int getSecondClassSeats(){ return secondClassSeats;}
 
-    public void setSecondClassSeats(int noOfPassengersForBooking){ this.secondClassSeats-=noOfPassengersForBooking;}
-
-    public void setSeatsAvailable(int noOfPassengersForBooking) {
-        this.availableSeats=noOfPassengersForBooking;
+    public void setEconomicSeats(int noOfPassengersForBooking){
+        this.economicSeats-=noOfPassengersForBooking;
+        setSeatsAvailable(noOfPassengersForBooking);
+        setTotalFare(getEconomicPrice(),noOfPassengersForBooking);
     }
 
-    public String getFlightDetails() {
-        StringBuilder stringBuilder=new StringBuilder();
-        stringBuilder.append(getNumber());
-        stringBuilder.append(getDestination());
-        stringBuilder.append(getSource());
-        stringBuilder.append(getDepartureDate());
-        stringBuilder.append(getAvailableSeats());
-        return stringBuilder.toString();
+    public void setFirstClassSeats(int noOfPassengersForBooking){
+        this.firstClassSeats-=noOfPassengersForBooking;
+        setSeatsAvailable(noOfPassengersForBooking);
+        setTotalFare(getFirstClassPrice(),noOfPassengersForBooking);
+    }
+
+    public void setSecondClassSeats(int noOfPassengersForBooking){
+        this.secondClassSeats-=noOfPassengersForBooking;
+        setSeatsAvailable(noOfPassengersForBooking);
+        setTotalFare(getSecondClassPrice(),noOfPassengersForBooking);
+    }
+
+    public void setTotalFare(int price,int noOfPassengersForBooking){this.totalFare=price*noOfPassengersForBooking;}
+
+    public int getTotalFare(){ return this.totalFare;}
+
+    public void setSeatsAvailable(int noOfPassengersForBooking) {
+        this.availableSeats-=noOfPassengersForBooking;
     }
 }

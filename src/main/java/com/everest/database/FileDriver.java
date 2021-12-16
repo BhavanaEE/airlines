@@ -28,7 +28,7 @@ public class FileDriver {
                         })
                         .map(line -> {
                             String[] flightDetails = line.split(",");
-                            flights.add(new Flight(Long.parseLong(flightDetails[0]), flightDetails[1], flightDetails[2], LocalDate.parse(flightDetails[3]), LocalTime.parse(flightDetails[4]), LocalTime.parse(flightDetails[5]), Integer.parseInt(flightDetails[6]),Integer.parseInt(flightDetails[7]),Integer.parseInt(flightDetails[8]),Integer.parseInt(flightDetails[9])));
+                            flights.add(new Flight(Long.parseLong(flightDetails[0]), flightDetails[1], flightDetails[2], LocalDate.parse(flightDetails[3]), LocalTime.parse(flightDetails[4]), LocalTime.parse(flightDetails[5]), Integer.parseInt(flightDetails[6]),Integer.parseInt(flightDetails[7]), Integer.parseInt(flightDetails[8]), Integer.parseInt(flightDetails[9]), Integer.parseInt(flightDetails[10]), Integer.parseInt(flightDetails[11]), Integer.parseInt(flightDetails[12])));
                             return line;
                         })
                         .collect(Collectors.toList());
@@ -37,7 +37,7 @@ public class FileDriver {
         return flights;
     }
 
-    public void writeToFolder(Flight modifiedFlights,boolean flag) throws IOException {
+    public void writeToFolder(Flight modifiedFlights) throws IOException {
         List<String> flights = new ArrayList<>();
         for (File fileEntry : Objects.requireNonNull(folder.listFiles())) {
             Stream<String> lines = Files.lines(Paths.get(fileEntry.getPath()));
@@ -45,7 +45,7 @@ public class FileDriver {
                     .map(line -> {
                         String[] flightDetails = line.split(",");
                         if (flightDetails[0].equals(String.valueOf(modifiedFlights.getNumber()))) {
-                            line = flightDetails[0] + "," + flightDetails[1] + "," + flightDetails[2] + "," + flightDetails[3] + "," + flightDetails[4] + "," + flightDetails[5] + "," + modifiedFlights.getAvailableSeats()+","+modifiedFlights.getEconomicSeats()+","+modifiedFlights.getFirstClassSeats()+","+modifiedFlights.getSecondClassSeats();
+                            line = flightDetails[0] + "," + flightDetails[1] + "," + flightDetails[2] + "," + flightDetails[3] + "," + flightDetails[4] + "," + flightDetails[5] + "," + modifiedFlights.getAvailableSeats()+","+modifiedFlights.getEconomicSeats()+","+modifiedFlights.getFirstClassSeats()+","+modifiedFlights.getSecondClassSeats()+","+modifiedFlights.getEconomicPrice()+","+modifiedFlights.getFirstClassPrice()+","+modifiedFlights.getSecondClassPrice();
                         }
                         return line;
                     })
