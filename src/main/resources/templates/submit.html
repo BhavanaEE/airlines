@@ -5,27 +5,32 @@
     <title>Title</title>
 </head>
 <body>
-<h2>Thanks for booking.</h2>
+<h4>Thanks for booking.Your booking details are</h4>
 <table border="1">
-    <th>Number</th>
-    <th>From</th>
-    <th>To</th>
-    <th>Departure Date</th>
-    <th>Arrival Time</th>
-    <th>Seats Available</th>
-    <th>Economic Seats</th>
-    <th>First class Seats</th>
-    <th>second class Seats</th>
+    <th colspan="2">Flight ticket details</th>
     <tr th:each="flight:${flights}">
+        <td>Flight number</td>
         <td id="number" th:text="${flight.number}"></td>
+    </tr>
+    <tr th:each="flight:${flights}">
+        <td>From</td>
         <td id="source" th:text="${flight.source}"></td>
+    </tr>
+    <tr th:each="flight:${flights}">
+        <td>To</td>
         <td id="destination" th:text="${flight.destination}"></td>
-        <td id="departureDate" th:text="${flight.departureDate}"></td>
-        <td th:text="${flight.arrivalTime}"></td>
-        <td th:text="${flight.availableSeats}"></td>
-        <td th:text="${flight.economicSeats}"></td>
-        <td th:text="${flight.firstClassSeats}"></td>
-        <td th:text="${flight.secondClassSeats}"></td>
+    </tr>
+    <tr th:each="flight:${flights}">
+        <td>Departure Time</td>
+        <td id="departureTime" th:text="${flight.departureTime}"></td>
+    </tr>
+    <tr>
+        <td>Flight Type</td>
+        <td th:text="${flightType}"></td>
+    </tr>
+    <tr th:each="flight:${flights}">
+        <td>Total Fare</td>
+        <td th:text="${flight.totalFare}"></td>
     </tr>
 </table>
 </body>

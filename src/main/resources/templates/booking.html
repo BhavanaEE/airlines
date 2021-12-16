@@ -12,21 +12,52 @@
 </head>
 <body>
 <h1>Airline application</h1>
-
-<form th:action="@{/booking}" method="post">
-    <label for="noOfPassengers">Number of Passengers</label>
-    <input type="number" id="noOfPassengers" name="noOfPassengers" required>
-    <br>
-    <br>
-    <label for="flightType">Type of Class</label>
-    <select id="flightType" name="flightType" required>
-        <option value="Business" >Business</option>
-        <option value="First">First</option>
-        <option value="Second">second</option>
-        <option value="Economic">Economic</option>
-    </select>
-    <input type="hidden" for="flightNumber" >
-    <button type="submit" id="flightNumber" th:value="${flightNumber}" name="flightNumber">Submit</button>
-</form>
+<table border="1">
+    <th>Number</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Departure Date</th>
+    <th>Arrival Time</th>
+    <th>Seats Available</th>
+    <th>Economic Seats</th>
+    <th>Economic Price</th>
+    <th>First class Seats</th>
+    <th>First Class Price</th>
+    <th>Second class Seats</th>
+    <th>Second Class Price</th>
+    <tr th:each="flight:${flights}">
+        <td id="number" th:text="${flight.number}"></td>
+        <td id="source" th:text="${flight.source}"></td>
+        <td id="destination" th:text="${flight.destination}"></td>
+        <td id="departureDate" th:text="${flight.departureDate}"></td>
+        <td th:text="${flight.arrivalTime}"></td>
+        <td th:text="${flight.availableSeats}"></td>
+        <td th:text="${flight.economicSeats}"></td>
+        <td th:text="${flight.economicPrice}"></td>
+        <td th:text="${flight.firstClassSeats}"></td>
+        <td th:text="${flight.firstClassPrice}"></td>
+        <td th:text="${flight.secondClassSeats}"></td>
+        <td th:text="${flight.secondClassPrice}"></td>
+    </tr>
+</table>
+<br>
+<br>
+    <form th:action="@{/booking}" method="post">
+        <label for="noOfPassengers">Number of Passengers</label>
+        <input type="number" id="noOfPassengers" name="noOfPassengers" required>
+        <br>
+        <br>
+        <label for="flightType">Type of Class</label>
+        <select id="flightType" name="flightType" required>
+            <option value="Business" >Business</option>
+            <option value="First">First</option>
+            <option value="Second">second</option>
+            <option value="Economic">Economic</option>
+        </select>
+        <br>
+        <br>
+        <input type="hidden" for="flightNumber" >
+        <button type="submit" id="flightNumber" th:value="${flights.get(0).number}" name="flightNumber">Book</button>
+    </form>
 </body>
 </html>
