@@ -42,18 +42,30 @@ public class SearchFlightService {
     }
 
     public boolean updateFlightData(List<Flight> modifiedFlights, int noOfPassengers,String flightType) throws IOException {
-        int seatsAvailable = modifiedFlights.get(0).getAvailableSeats();
         boolean flag=false;
-        if(modifiedFlights.get(0).getEconomicSeats()>noOfPassengers && modifiedFlights.get(0).getFirstClassSeats()>noOfPassengers && modifiedFlights.get(0).getSecondClassSeats()>noOfPassengers){
-            if(flightType.equalsIgnoreCase("Economic"))
-                modifiedFlights.get(0).setEconomicSeats(noOfPassengers);
-            if(flightType.equalsIgnoreCase("First"))
-                modifiedFlights.get(0).setFirstClassSeats(noOfPassengers);
-            if(flightType.equalsIgnoreCase("Second"))
-                modifiedFlights.get(0).setSecondClassSeats(noOfPassengers);
-            modifiedFlights.get(0).setSeatsAvailable(seatsAvailable - noOfPassengers);
-            flag=true;
-            fileDriver.writeToFolder(modifiedFlights.get(0),flag);
+        System.out.println(flightType);
+        switch (flightType){
+            case "Economic":
+                if(modifiedFlights.get(0).getEconomicSeats()>noOfPassengers) {
+                    modifiedFlights.get(0).setEconomicSeats(noOfPassengers);
+                    fileDriver.writeToFolder(modifiedFlights.get(0));
+                    flag=true;
+                }
+                break;
+            case "First":
+                if(modifiedFlights.get(0).getFirstClassSeats()>noOfPassengers) {
+                    modifiedFlights.get(0).setFirstClassSeats(noOfPassengers);
+                    fileDriver.writeToFolder(modifiedFlights.get(0));
+                    flag = true;
+                }
+                break;
+            case "Second":
+                if(modifiedFlights.get(0).getSecondClassSeats()>noOfPassengers) {
+                    modifiedFlights.get(0).setSecondClassSeats(noOfPassengers);
+                    fileDriver.writeToFolder(modifiedFlights.get(0));
+                    flag = true;
+                }
+                break;
         }
         return flag;
     }
