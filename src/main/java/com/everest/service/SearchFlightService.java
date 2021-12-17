@@ -45,22 +45,22 @@ public class SearchFlightService {
         boolean flag=false;
         System.out.println(flightType);
         switch (flightType){
-            case "Economic":
-                if(modifiedFlights.get(0).getEconomicSeats()>noOfPassengers) {
+            case "Economic Class":
+                if(modifiedFlights.get(0).getEconomicSeats()>=noOfPassengers) {
                     modifiedFlights.get(0).setEconomicSeats(noOfPassengers);
                     fileDriver.writeToFolder(modifiedFlights.get(0));
                     flag=true;
                 }
                 break;
-            case "First":
-                if(modifiedFlights.get(0).getFirstClassSeats()>noOfPassengers) {
+            case "First Class":
+                if(modifiedFlights.get(0).getFirstClassSeats()>=noOfPassengers) {
                     modifiedFlights.get(0).setFirstClassSeats(noOfPassengers);
                     fileDriver.writeToFolder(modifiedFlights.get(0));
                     flag = true;
                 }
                 break;
-            case "Second":
-                if(modifiedFlights.get(0).getSecondClassSeats()>noOfPassengers) {
+            case "Second Class":
+                if(modifiedFlights.get(0).getSecondClassSeats()>=noOfPassengers) {
                     modifiedFlights.get(0).setSecondClassSeats(noOfPassengers);
                     fileDriver.writeToFolder(modifiedFlights.get(0));
                     flag = true;
