@@ -85,6 +85,32 @@ public class Flight {
         setTotalFare(getSecondClassPrice(),noOfPassengersForBooking);
     }
 
+    public int getAvailableSeatsBySeatType(String flightType) {
+        switch (flightType) {
+            case "Economic Class":
+                return economicSeats;
+            case "First Class":
+                return firstClassSeats;
+            case "Second Class":
+                return secondClassSeats;
+
+        }
+        return 0;
+    }
+
+    public int getBasePriceBySeatType(String flightType) {
+        switch (flightType) {
+            case "Economic Class":
+                return economicPrice;
+            case "First Class":
+                return firstClassPrice;
+            case "Second Class":
+                return secondClassPrice;
+
+        }
+        return 0;
+    }
+
     public void setTotalFare(int price,int noOfPassengersForBooking){this.totalFare=price*noOfPassengersForBooking;}
 
     public int getTotalFare(){ return this.totalFare;}
