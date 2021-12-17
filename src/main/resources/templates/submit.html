@@ -21,8 +21,16 @@
         <td id="destination" th:text="${flight.destination}"></td>
     </tr>
     <tr th:each="flight:${flights}">
+        <td>Departure Date</td>
+        <td id="departureDate" th:text="${flight.departureDate}"></td>
+    </tr>
+    <tr th:each="flight:${flights}">
         <td>Departure Time</td>
         <td id="departureTime" th:text="${flight.departureTime}"></td>
+    </tr>
+    <tr th:each="flight:${flights}">
+        <td>Arrival Time</td>
+        <td id="arrivalTime" th:text="${flight.arrivalTime}"></td>
     </tr>
     <tr>
         <td>Flight Type</td>
@@ -33,5 +41,9 @@
         <td th:text="${flight.totalFare}"></td>
     </tr>
 </table>
+<br>
+<form th:action="@{/}" method="post">
+    <input type="submit" name="home" id="home" value="Home">
+</form>
 </body>
 </html>

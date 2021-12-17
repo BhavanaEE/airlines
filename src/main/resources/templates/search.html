@@ -13,32 +13,28 @@
         <th>From</th>
         <th>To</th>
         <th>Departure Date</th>
+        <th>Departure Time</th>
         <th>Arrival Time</th>
-        <th>Seats Available</th>
-        <th>Economic Seats</th>
-        <th>Economic Price</th>
-        <th>First class Seats</th>
-        <th>First Class Price</th>
-        <th>Second class Seats</th>
-        <th>Second Class Price</th>
+        <th>Class Type</th>
+        <th th:text="${flightType}+' Seats'"></th>
+        <th th:text="${flightType}+' Price'"></th>
+        <th>Book</th>
         <tr th:each="flight:${flights}">
             <td id="number" th:text="${flight.number}"></td>
             <td id="source" th:text="${flight.source}"></td>
             <td id="destination" th:text="${flight.destination}"></td>
             <td id="departureDate" th:text="${flight.departureDate}"></td>
+            <td id="arrivalTime" th:text="${flight.departureTime}"></td>
             <td th:text="${flight.arrivalTime}"></td>
-            <td th:text="${flight.availableSeats}"></td>
-
-            <td th:text="${flight.economicSeats}"></td>
-            <td th:text="${flight.economicPrice}"></td>
-            <td th:text="${flight.firstClassSeats}"></td>
-            <td th:text="${flight.firstClassPrice}"></td>
-            <td th:text="${flight.secondClassSeats}"></td>
-            <td th:text="${flight.secondClassPrice}"></td>
+            <td th:text="${flightType}"></td>
+            <td th:text="${flight.getAvailableSeatsBySeatType(flightType)}"></td>
+            <td th:text="${flight.getBasePriceBySeatType(flightType)}"></td>
             <td>
-                <form th:action="@{/book}" method="post">
+                <form th:action="@{/booking}" method="post">
                     <input type="hidden" for="flightNumber" >
                     <button type="submit" id="flightNumber" th:value="${flight.number}" name="flightNumber">Book</button>
+                    <input type="hidden" id="noOfPassengers" th:value="${noOfPassengers}" name="noOfPassengers">
+                    <input type="hidden" id="flightType" th:value="${flightType}" name="flightType">
                 </form>
             </td>
         </tr>
