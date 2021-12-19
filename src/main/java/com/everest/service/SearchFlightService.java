@@ -2,6 +2,7 @@ package com.everest.service;
 
 import com.everest.database.FileDriver;
 import com.everest.model.Flight;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -11,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class SearchFlightService {
+
+    int i=0,j=0,k=0,totalEconomicSeats =0,totalFirstClassSeats=0,totalSecondClassSeats=0;
     FileDriver fileDriver=new FileDriver();
     File folder = new File("/Users/bhavanachivukula/Training/airlines/src/main/java/com/everest/database/FlightsData");
 
@@ -28,7 +31,6 @@ public class SearchFlightService {
     }
 
     private List<Flight> getFlightsByFlightType(List<Flight> flightList) {
-        //System.out.println(flightType+"....");
         return flightList;
     }
 
@@ -43,26 +45,35 @@ public class SearchFlightService {
 
     public boolean updateFlightData(List<Flight> modifiedFlights, int noOfPassengers,String flightType) throws IOException {
         boolean flag=false;
-        System.out.println(flightType);
+        System.out.println(flightType+" "+modifiedFlights.get(0).getAvailableEconomicSeats());
         switch (flightType){
             case "Economic Class":
-                if(modifiedFlights.get(0).getEconomicSeats()>=noOfPassengers) {
-                    modifiedFlights.get(0).setEconomicSeats(noOfPassengers);
+                if(modifiedFlights.get(0).getAvailableEconomicSeats()>=noOfPassengers) {
+                    if(i==0)
+                        totalEconomicSeats =modifiedFlights.get(0).getAvailableEconomicSeats();
+                    modifiedFlights.get(0).setAvailableEconomicSeats(noOfPassengers, totalEconomicSeats);
                     fileDriver.writeToFolder(modifiedFlights.get(0));
+                    i++;
                     flag=true;
                 }
                 break;
             case "First Class":
-                if(modifiedFlights.get(0).getFirstClassSeats()>=noOfPassengers) {
-                    modifiedFlights.get(0).setFirstClassSeats(noOfPassengers);
+                if(modifiedFlights.get(0).getAvailableFirstClassSeats()>=noOfPassengers) {
+                    if(j==0)
+                        totalFirstClassSeats=modifiedFlights.get(0).getAvailableEconomicSeats();
+                    modifiedFlights.get(0).setAvailableFirstClassSeats(noOfPassengers,totalFirstClassSeats);
                     fileDriver.writeToFolder(modifiedFlights.get(0));
+                    j++;
                     flag = true;
                 }
                 break;
             case "Second Class":
-                if(modifiedFlights.get(0).getSecondClassSeats()>=noOfPassengers) {
-                    modifiedFlights.get(0).setSecondClassSeats(noOfPassengers);
+                if(modifiedFlights.get(0).getAvailableSecondClassSeats()>=noOfPassengers) {
+                    if(k==0)
+                        totalSecondClassSeats=modifiedFlights.get(0).getAvailableEconomicSeats();
+                    modifiedFlights.get(0).setAvailableSecondClassSeats(noOfPassengers,totalSecondClassSeats);
                     fileDriver.writeToFolder(modifiedFlights.get(0));
+                    k++;
                     flag = true;
                 }
                 break;
