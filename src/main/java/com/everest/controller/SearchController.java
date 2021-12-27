@@ -1,6 +1,7 @@
 package com.everest.controller;
 
-import com.everest.service.SearchFlightService;
+import com.everest.service.PriceStrategy;
+import com.everest.service.SearchFlight;
 import com.everest.model.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,10 @@ import java.util.List;
 public class SearchController {
 
     @Autowired
-    private SearchFlightService searchFlightService;
+    private SearchFlight searchFlight;
+
+    @Autowired
+    private PriceStrategy priceStrategy;
 
     @RequestMapping(value = "/")
     public String home() {
@@ -22,11 +26,14 @@ public class SearchController {
 
     @RequestMapping(value = "/search")
     public String search(String from, String to, String departureDate,String noOfPassengers,String flightType, Model model) throws Exception {
-        List<Flight> flightList = searchFlightService.getFlights(from, to, departureDate);
+        List<Flight> flightList = searchFlight.getFlights(from, to, departureDate);
         if (flightList.size() == 0) {
             model.addAttribute("errorMessage","No flights found");
             return "error";
         }
+        priceStrategy.calculateFareForEachFlight(flightList,flightType);
+        double totalFare = priceStrategy.getTotalFare();
+        model.addAttribute("totalFare",totalFare);
         model.addAttribute("flights", flightList);
         model.addAttribute("noOfPassengers",noOfPassengers);
         model.addAttribute("flightType",flightType);
