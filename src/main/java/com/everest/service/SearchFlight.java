@@ -16,19 +16,13 @@ public class SearchFlight {
     File folder = new File("/Users/bhavanachivukula/Training/airlines/src/main/java/com/everest/database/FlightsData");
 
     public List<Flight> searchFlightsBySourceAndDestination(String source, String destination) throws Exception {
-        List<Flight> flights = fileDriver.readFromFolder(folder, source, destination);
-        return flights;
+        return fileDriver.readFromFolder(folder, source, destination);
     }
 
     public List<Flight> getFlights(String source, String destination, String departureDate) throws Exception {
         List<Flight> flightList = searchFlightsBySourceAndDestination(source, destination);
         flightList = getFlightsByDepartureDate(flightList, departureDate);
         flightList=getFlightsBySeatsAvailable(flightList);
-        return getFlightsByFlightType(flightList);
-
-    }
-
-    private List<Flight> getFlightsByFlightType(List<Flight> flightList) {
         return flightList;
     }
 

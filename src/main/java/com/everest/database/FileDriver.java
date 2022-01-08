@@ -1,6 +1,12 @@
 package com.everest.database;
 
 import com.everest.model.Flight;
+import com.everest.model.SeatType;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -16,7 +22,7 @@ public class FileDriver {
 
     public List<Flight> readFromFolder(File folder, String source, String destination) throws IOException {
         List<Flight> flights = new ArrayList<>();
-        for (File fileEntry : folder.listFiles()) {
+        for (File fileEntry : Objects.requireNonNull(folder.listFiles())) {
             Stream<String> lines = Files.lines(Paths.get(fileEntry.getPath()));
             lines
                     .filter(line -> {
@@ -25,7 +31,9 @@ public class FileDriver {
                     })
                     .map(line -> {
                         String[] flightDetails = line.split(",");
-                        flights.add(new Flight(Long.parseLong(flightDetails[0]), flightDetails[1], flightDetails[2], LocalDate.parse(flightDetails[3]), LocalTime.parse(flightDetails[4]), LocalTime.parse(flightDetails[5]), Integer.parseInt(flightDetails[6]), Integer.parseInt(flightDetails[7]), Integer.parseInt(flightDetails[8]), Integer.parseInt(flightDetails[9]), Integer.parseInt(flightDetails[10]), Integer.parseInt(flightDetails[11]), Integer.parseInt(flightDetails[12]), Integer.parseInt(flightDetails[13]), Integer.parseInt(flightDetails[14]), Integer.parseInt(flightDetails[15])));
+                        Flight flight = new Flight(Long.parseLong(flightDetails[0]), flightDetails[1], flightDetails[2], LocalDate.parse(flightDetails[3]), LocalTime.parse(flightDetails[4]), LocalTime.parse(flightDetails[5]));
+                        flight.setSeats(flightDetails);
+                        flights.add(flight);
                         return line;
                     })
                     .collect(Collectors.toList());
@@ -33,15 +41,15 @@ public class FileDriver {
         return flights;
     }
 
-    public void writeToFolder(Flight modifiedFlights) throws IOException {
-        List<String> flights = new ArrayList<>();
+    public void writeToFolder(Flight modifiedFlight) throws IOException {
+        List<String> flights;
         for (File fileEntry : Objects.requireNonNull(folder.listFiles())) {
             Stream<String> lines = Files.lines(Paths.get(fileEntry.getPath()));
             flights = lines
                     .map(line -> {
                         String[] flightDetails = line.split(",");
-                        if (flightDetails[0].equals(String.valueOf(modifiedFlights.getNumber()))) {
-                            line = flightDetails[0] + "," + flightDetails[1] + "," + flightDetails[2] + "," + flightDetails[3] + "," + flightDetails[4] + "," + flightDetails[5] + "," + modifiedFlights.getTotalSeats() + "," + modifiedFlights.getTotalEconomicSeats() + "," + modifiedFlights.getTotalFirstClassSeats() + "," + modifiedFlights.getTotalSecondClassSeats() + "," + modifiedFlights.getAvailableEconomicSeats() + "," + modifiedFlights.getAvailableFirstClassSeats() + "," + modifiedFlights.getAvailableSecondClassSeats() + "," + modifiedFlights.getEconomicBasePrice() + "," + modifiedFlights.getFirstClassBasePrice() + "," + modifiedFlights.getSecondClassBasePrice();
+                        if (flightDetails[0].equals(String.valueOf(modifiedFlight.getNumber()))) {
+                            line = modifiedFlight.getFlightDetails();
                         }
                         return line;
                     })
