@@ -27,18 +27,41 @@ public class Flight {
         this.arrivalTime=arrivalTime;
     }
 
-    public void setNumber() { this.number=number;}
+    public void setNumber(long number) {
+        this.number = number;
+    }
 
-    public void setSource() { this.source=source;}
+    public void setSource(String source) {
+        this.source = source;
+    }
 
-    public void setDestination() { this.destination=destination;}
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
 
-    public void setDepartureDate() { this.departureDate=departureDate;}
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
 
-    public void setDepartureTime() { this.departureTime=departureTime;}
+    public void setDepartureTime(LocalTime departureTime) {
+        this.departureTime = departureTime;
+    }
 
-    public void setArrivalTime() { this.arrivalTime=arrivalTime;}
+    public void setArrivalTime(LocalTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
 
+    public void setEconomicClass(SeatType economicClass) {
+        this.economicClass = economicClass;
+    }
+
+    public void setFirstClass(SeatType firstClass) {
+        this.firstClass = firstClass;
+    }
+
+    public void setSecondClass(SeatType secondClass) {
+        this.secondClass = secondClass;
+    }
 
     public long getNumber() {
         return number;
@@ -70,7 +93,7 @@ public class Flight {
         return null;
     }
 
-    private void setTotalSeats(int noOfPassengersForBooking) { this.totalSeats -=noOfPassengersForBooking;}
+    private void setTotalSeats(int noOfPassengersForBooking) { this.totalSeats =noOfPassengersForBooking;}
 
     public int getTotalSeats() { return totalSeats;}
 

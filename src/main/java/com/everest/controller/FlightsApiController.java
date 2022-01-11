@@ -1,6 +1,7 @@
 package com.everest.controller;
 
 import com.everest.database.DataHandler;
+import com.everest.exception.FlightsNotFound;
 import com.everest.model.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,22 +21,22 @@ public class FlightsApiController {
     }
 
     @GetMapping("/flights/{number}")
-    public Flight getAFlight(@PathVariable("number") long number) throws IOException {
-        return dataHandler.readAFlight(number);
+    public Flight getFlight(@PathVariable("number") long number) throws IOException, FlightsNotFound {
+        return dataHandler.readFlight(number);
     }
 
     @PostMapping("/flights")
-    public long createAFlight(String source, String destination) throws IOException {
-        return dataHandler.readLastFlight(source,destination);
+    public long create(@RequestBody Flight flight) throws IOException {
+        return dataHandler.createFlight(flight);
     }
 
     @PutMapping("/flights/{number}")
-    public Flight update(@PathVariable long number, String source, String destination) throws IOException {
-        return dataHandler.updateAFlight(number,source,destination);
+    public Flight update(@PathVariable long number,@RequestBody Flight flight) throws IOException, FlightsNotFound {
+        return dataHandler.updateFlight(number,flight);
     }
 
     @DeleteMapping("/flights/{number}")
-    public boolean deleteFlight(@PathVariable("number") long number) throws IOException {
+    public boolean delete(@PathVariable("number") long number) throws IOException, FlightsNotFound {
         return dataHandler.deleteFlight(number);
     }
 }

@@ -4,13 +4,28 @@ public class SeatType {
     private int totalSeats;
     private int availableSeats;
     private int basePrice;
+
+    public SeatType() {}
+
     public SeatType(int totalSeats,int availableSeats,int basePrice){
         this.totalSeats=totalSeats;
         this.availableSeats=availableSeats;
         this.basePrice=basePrice;
     }
 
-    public void setAvailableSeats(int noOfPassengersPerBooking) {
+    public void setTotalSeats(int totalSeats) {
+        this.totalSeats = totalSeats;
+    }
+
+    public void setBasePrice(int basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public void setAvailableSeats(int availableSeats){
+        this.availableSeats=availableSeats;
+    }
+
+    public void updateAvailableSeats(int noOfPassengersPerBooking) {
         this.availableSeats -= noOfPassengersPerBooking;
     }
 

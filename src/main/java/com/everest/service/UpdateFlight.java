@@ -13,7 +13,7 @@ public class UpdateFlight {
 
     public void updateFlightData(Flight selectedFlight, int noOfPassengers, double totalFare,String seatType) throws IOException, FlightsNotFound {
         if(selectedFlight.getSeatType(seatType).getAvailableSeats()<noOfPassengers) throw new FlightsNotFound();
-        selectedFlight.getSeatType(seatType).setAvailableSeats(noOfPassengers);
+        selectedFlight.getSeatType(seatType).updateAvailableSeats(noOfPassengers);
         selectedFlight.setTotalFare(totalFare);
         fileDriver.writeToFolder(selectedFlight);
     }
