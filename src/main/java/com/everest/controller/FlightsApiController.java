@@ -1,5 +1,4 @@
 package com.everest.controller;
-
 import com.everest.database.DataHandler;
 import com.everest.exception.FlightsNotFound;
 import com.everest.model.Flight;
