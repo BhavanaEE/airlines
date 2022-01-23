@@ -11,9 +11,9 @@ public class Flight {
     private LocalTime departureTime;
     private LocalTime arrivalTime;
     private int totalSeats=500;
-    SeatType economicClass;
-    SeatType firstClass;
-    SeatType secondClass;
+    private SeatType economicClass;
+    private SeatType firstClass;
+    private SeatType secondClass;
     private double totalFare;
 
     public Flight() {}
@@ -81,6 +81,18 @@ public class Flight {
 
     public LocalTime getArrivalTime() { return arrivalTime;}
 
+    public SeatType getEconomicClass() {
+        return economicClass;
+    }
+
+    public SeatType getFirstClass() {
+        return firstClass;
+    }
+
+    public SeatType getSecondClass() {
+        return secondClass;
+    }
+
     public SeatType getSeatType(String seatType){
         switch (seatType) {
             case "EconomicClass":
@@ -102,7 +114,6 @@ public class Flight {
             case "EconomicClass":
                 return this.economicClass.getAvailableSeats();
             case "FirstClass":
-                System.out.println("XXXX");
                 return this.firstClass.getAvailableSeats();
             case "SecondClass":
                 return this.secondClass.getAvailableSeats();
@@ -133,29 +144,8 @@ public class Flight {
     }
 
     public void setSeats(String[] flightDetail) {
-        economicClass=new SeatType(Integer.parseInt(flightDetail[7]),Integer.parseInt(flightDetail[10]),Integer.parseInt(flightDetail[13]));
-        firstClass=new SeatType(Integer.parseInt(flightDetail[8]),Integer.parseInt(flightDetail[11]),Integer.parseInt(flightDetail[14]));
-        secondClass=new SeatType(Integer.parseInt(flightDetail[9]),Integer.parseInt(flightDetail[12]),Integer.parseInt(flightDetail[15]));
-    }
-
-    public String getFlightDetails(){
-        StringBuilder stringBuilder=new StringBuilder();
-        stringBuilder.append(this.number+",");
-        stringBuilder.append(this.source+",");
-        stringBuilder.append(this.destination+",");
-        stringBuilder.append(this.departureDate+",");
-        stringBuilder.append(this.departureTime+",");
-        stringBuilder.append(this.arrivalTime+",");
-        stringBuilder.append(this.totalSeats+",");
-        stringBuilder.append(economicClass.getTotalSeats()+",");
-        stringBuilder.append(firstClass.getTotalSeats()+",");
-        stringBuilder.append(secondClass.getTotalSeats()+",");
-        stringBuilder.append(economicClass.getAvailableSeats()+",");
-        stringBuilder.append(firstClass.getAvailableSeats()+",");
-        stringBuilder.append(secondClass.getAvailableSeats()+",");
-        stringBuilder.append(economicClass.getBasePrice()+",");
-        stringBuilder.append(firstClass.getBasePrice()+",");
-        stringBuilder.append(secondClass.getBasePrice());
-        return stringBuilder.toString();
+        economicClass=new SeatType(Integer.parseInt(flightDetail[0]),Integer.parseInt(flightDetail[1]),Integer.parseInt(flightDetail[2]));
+        firstClass=new SeatType(Integer.parseInt(flightDetail[3]),Integer.parseInt(flightDetail[4]),Integer.parseInt(flightDetail[5]));
+        secondClass=new SeatType(Integer.parseInt(flightDetail[6]),Integer.parseInt(flightDetail[7]),Integer.parseInt(flightDetail[8]));
     }
 }

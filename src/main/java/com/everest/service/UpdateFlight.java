@@ -1,20 +1,22 @@
 package com.everest.service;
 
-import com.everest.database.FileDriver;
-import com.everest.exception.FlightsNotFound;
+import com.everest.dto.FlightDTO;
 import com.everest.model.Flight;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 public class UpdateFlight {
-    FileDriver fileDriver = new FileDriver();
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public void updateFlightData(Flight selectedFlight, int noOfPassengers, double totalFare,String seatType) throws IOException, FlightsNotFound {
-        if(selectedFlight.getSeatType(seatType).getAvailableSeats()<noOfPassengers) throw new FlightsNotFound();
+    @Autowired
+    private FlightDTO flightDTO;
+
+    public void updateFlightData(Flight selectedFlight, int noOfPassengers, double totalFare,String seatType) {
         selectedFlight.getSeatType(seatType).updateAvailableSeats(noOfPassengers);
         selectedFlight.setTotalFare(totalFare);
-        fileDriver.writeToFolder(selectedFlight);
+        flightDTO.updateFlight(selectedFlight);
     }
 }

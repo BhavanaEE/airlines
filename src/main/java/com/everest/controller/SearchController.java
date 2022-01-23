@@ -1,8 +1,8 @@
 package com.everest.controller;
 
+import com.everest.dto.FlightDTO;
 import com.everest.exception.FlightsNotFound;
 import com.everest.service.PriceStrategy;
-import com.everest.service.SearchFlight;
 import com.everest.model.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.List;
 public class SearchController {
 
     @Autowired
-    private SearchFlight searchFlight;
+    private FlightDTO flightDTO;
 
     @Autowired
     private PriceStrategy priceStrategy;
@@ -26,13 +26,13 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search")
-    public String search(String from, String to, String departureDate,String noOfPassengers,String flightType, Model model) throws Exception {
-        List<Flight> flightList = searchFlight.getFlights(from, to, departureDate);
+    public String search(String from, String to, String departureDate,String noOfPassengers,String seatType, Model model) throws Exception {
+        List<Flight> flightList = flightDTO.getFlights(from, to, departureDate,noOfPassengers,seatType);
         if(flightList.size()==0) throw new FlightsNotFound();
-        priceStrategy.calculateFareForEachFlight(flightList,flightType,Integer.parseInt(noOfPassengers));
+        priceStrategy.calculateFareForEachFlight(flightList,seatType,Integer.parseInt(noOfPassengers));
         model.addAttribute("flights", flightList);
         model.addAttribute("noOfPassengers",noOfPassengers);
-        model.addAttribute("flightType",flightType);
+        model.addAttribute("seatType",seatType);
         return "search";
     }
 }
